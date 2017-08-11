@@ -5,13 +5,15 @@ import { DashboardComponent }   from './dashboard/dashboard.component';
 import { LoginComponent }       from './login/login.component';
 import { RegisterComponent }    from './register/register.component';
 import { AuthGuard }            from './_guards/auth.guard';
+import { WalletComponent }        from './wallet/wallet.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'login',      component: LoginComponent },
-  { path: 'logout',     component: LoginComponent },
-  { path: 'register',   component: RegisterComponent },
-  { path: 'dashboard',  component: DashboardComponent, canActivate: [AuthGuard] }
+    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+    { path: 'login',      component: LoginComponent },
+    { path: 'logout',     component: LoginComponent },
+    { path: 'wallet',     component: WalletComponent },
+    { path: 'register',   component: RegisterComponent },
+    { path: 'dashboard',  component: DashboardComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

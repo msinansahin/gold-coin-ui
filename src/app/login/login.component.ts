@@ -2,7 +2,13 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
 
-import { AuthenticationService } from '../_services/authentication.service';
+import {
+    AuthenticationService,
+    AlertService,
+    UserService } from '../_services/index';
+import {User} from "../_models/user";
+import { environment } from '../../environments/environment.js';
+
 
 @Component({
   moduleId: module.id.toString(),
@@ -14,20 +20,26 @@ export class LoginComponent implements OnInit {
     model: any = {};
     returnUrl: string;
     loading = false;
+    production = environment.production;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
-        // private alertService: AlertService
+        private authenticationService: AuthenticationService,
+        private userService: UserService,
+        private alertService: AlertService
     ) { }
 
     ngOnInit() {
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        if (!this.userService.isLoggedIn()) {
+            // get return url from route parameters or default to '/'
+            this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-        // reset login status
-        this.authenticationService.logout();
+            // reset login status
+            this.authenticationService.logout();
+        } else {
+            this.router.navigate(['']);
+        }
     }
 
     login() {
@@ -39,7 +51,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    // this.alertService.error(error);
+                    this.alertService.error(error);
                     this.loading = false;
                 });
     }

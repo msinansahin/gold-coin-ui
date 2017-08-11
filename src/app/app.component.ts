@@ -1,6 +1,8 @@
-import { Component }  from '@angular/core';
-import { User }               from './_models/user';
-import { UserService }        from './_services/_users/user.service';
+import { Component }                from '@angular/core';
+import { User }                     from './_models/user';
+import {
+    AuthenticationService,
+    UserService}                from  './_services/index';
 
 @Component({
   selector: 'my-app',
@@ -11,8 +13,8 @@ export class AppComponent {
     currentUser: User;
     title = 'Gold Coin';
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService,
+                private  authenticationService: AuthenticationService) {
         this.currentUser = this.userService.getLoggedUser();
     }
-
 }

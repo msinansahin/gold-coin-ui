@@ -1,6 +1,7 @@
 ﻿import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod, XHRBackend, RequestOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { Globals } from '../globals';
+import { Globals }  from '../globals';
+import { Wallet }     from '../_models/wallet';
 
 export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {
     // array of registered users
@@ -13,7 +14,8 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
         id: 2,
         username: 'customer',
         password: 'customer',
-        firstName: 'Customer'
+        firstName: 'Customer',
+        wallet: new Wallet('fake-e5aaGcJTj7h8fJQPVaBVeMZE12QGPD', 'EUR', 45.22)
     }] || [];
 
     // configure fake backend
@@ -41,7 +43,8 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                             username: user.username,
                             firstName: user.firstName,
                             lastName: user.lastName,
-                            token: 'fake-jwt-token'
+                            token: 'fake-jwt-token',
+                            wallet: user.wallet
                         }
                     })));
                 } else {

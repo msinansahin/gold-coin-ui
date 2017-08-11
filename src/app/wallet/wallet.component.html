@@ -1,0 +1,14 @@
+<h1 i18n="@@walletTitle">Wallet Overview</h1>
+<div class="panel panel-default">
+    <div class="panel-heading" i18n="@@balance">Balance</div>
+    <div class="panel-body">
+        {{getCurrentUser().wallet.currentBalance}} - {{getCurrentUser().wallet.currency}}
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading" i18n="@@address">Address</div>
+    <div class="panel-body">
+        {{getCurrentUser().wallet.address}}
+    </div>
+</div>

@@ -15,7 +15,13 @@
 
     <script src="systemjs.config.js"></script>
     <script>
-      System.import('main.js').catch(function(err){ console.error(err); });
+        // document.locale = 'es';
+        System.config({
+            map: {
+                text: 'systemjs-text-plugin.js'
+            }
+        });
+        System.import('main.js').catch(function(err){ console.error(err); });
     </script>
     <!-- bootstrap css -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />

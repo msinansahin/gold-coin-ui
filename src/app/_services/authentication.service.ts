@@ -6,7 +6,6 @@ import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment.js';
 import { Globals } from '../globals';
 
-
 @Injectable()
 export class AuthenticationService {
   apiContext: string;
@@ -16,7 +15,7 @@ export class AuthenticationService {
 
   // stub
   login(username: string, password: string) {
-      let data = { username: username, password: password };
+    let data = { username: username, password: password };
     return this.http.post( this.apiContext + Globals.AUTH_URL, data)
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
@@ -24,6 +23,7 @@ export class AuthenticationService {
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
+          Globals.currentUser = user;
         }
       });
   }
