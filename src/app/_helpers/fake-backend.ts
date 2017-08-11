@@ -1,6 +1,7 @@
 ﻿import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod, XHRBackend, RequestOptions } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { Globals } from '../globals';
+import { Asset } from '../_models/index';
 
 export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {
     // array of registered users
@@ -15,6 +16,21 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
         password: 'customer',
         firstName: 'Customer'
     }] || [];
+
+     let  assets: Asset[] = [
+        {
+            id: 1,
+            discription: 'best asset',
+            price: 10,
+            amount: 2
+        },
+        {
+            id: 2,
+            discription: 'just asset',
+            price: 2,
+            amount: 10
+        }
+    ];
 
     // configure fake backend
     backend.connections.subscribe((connection: MockConnection) => {
@@ -62,6 +78,24 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                     connection.mockRespond(new Response(new ResponseOptions({ status: 401 })));
                 }
 
+                return;
+            }
+
+            // get assets
+            if(connection.request.url.endsWith(Globals.ASSETS_URL)) {
+                connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: assets })));
+                return;
+            }
+
+            // get asset by id
+            if(connection.request.url.match(/\/api\/assets\/\d+$/) && connection.request.method === RequestMethod.Get) {
+                let urlParts = connection.request.url.split('/');
+                let id = parseInt(urlParts[urlParts.length - 1]);
+                let matchedAssets = assets.filter(asset => { return asset.id === id; });
+                let asset = matchedAssets.length ? matchedAssets[0] : null;
+
+                // respond 200 OK with user
+                connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: asset })));
                 return;
             }
 

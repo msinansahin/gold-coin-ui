@@ -1,0 +1,30 @@
+<h3>Assets title</h3>
+<hr>
+<div class="grid grid-pad">
+    <h4>Available assets</h4>
+    <div class="errorDiv">
+        {{errors}}
+    </div>
+    <table width="100%">
+        <thead>
+        <tr>
+            <th>Discription</th>
+            <th>Amount</th>
+            <th>Price</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let asset of assets">
+            <td>{{ asset.discription }}</td>
+            <td>{{ asset.amount }}</td>
+            <td>{{ asset.price }}</td>
+            <td><button [routerLink]="['/asset-detail', asset.id]">Buy</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <button [routerLink]="['/dashboard']">Back to the dashboard</button>
+
+</div>
+

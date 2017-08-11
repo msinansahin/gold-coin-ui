@@ -1,0 +1,17 @@
+<h3>Asset title</h3>
+<hr>
+<div class="grid grid-pad">
+    <div class="errorDiv">
+        {{errors}}
+    </div>
+    <h4>Asset detail:</h4>
+    <div>Discription: {{asset.discription}}</div>
+    <div>Amount: {{asset.amount}}</div>
+    <div>Price: {{asset.price}}</div>
+    <br>
+    <div>
+        <button>Buy</button>&nbsp;<button [routerLink]="['/asset-list']">Back to the list</button>
+    </div>
+
+</div>
+

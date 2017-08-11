@@ -1,4 +1,23 @@
 <h3>Dashboard title</h3>
 <div class="grid grid-pad">
+    <div class="errorDiv">
+        {{errors}}
+    </div>
+    <br/>
+
+    <div><a [routerLink]="['/asset-list']">Buy asset</a></div>
+    <br>
+
+    <div>
+        <button (click)="showHideMain = !showHideMain;myEvent()">Show transactions list</button>
+        <pre *ngIf="showHideMain">{{results | json}}</pre>
+    </div>
+
+    <br/>
+
+    <div>
+        <button (click)="showHideBalance = !showHideBalance;getAddressBalance()">Address balance</button>
+        <pre *ngIf="showHideBalance">{{addressBalance | json}}</pre>
+    </div>
 </div>
 
